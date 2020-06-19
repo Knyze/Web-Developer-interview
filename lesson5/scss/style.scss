@@ -1,0 +1,330 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    width: 1140px;
+    height: 800px;
+    margin: 0 auto;
+    background-image: -webkit-linear-gradient(top, #1532ce, #0a1136);
+    position: relative;
+    overflow: hidden;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .star {
+        position: absolute;
+        border-radius: 50%;
+        width: 1px;
+        height: 1px;
+        background-color: #ffffff;
+        box-shadow: 0 0 10px 2px white;
+
+        &:nth-child(1) {
+            top: 200px;
+            left: 985px;
+        }
+
+        &:nth-child(2) {
+            top: 74px;
+            left: 837px;
+        }
+
+        &:nth-child(3) {
+            top: 300px;
+            left: 650px;
+        }
+
+        &:nth-child(4) {
+            top: 100px;
+            left: 570px;
+        }
+
+        &:nth-child(5) {
+            top: 60px;
+            left: 1355px;
+        }
+
+        &:nth-child(6) {
+            top: 140px;
+            left: 283px;
+        }
+
+        &:nth-child(7) {
+            top: 36px;
+            left: 150px;
+        }
+    }
+}
+
+
+
+@mixin circle_mix($_width, $_bottom, $_left) {
+    position: absolute;
+    content: '';
+    background: #fff;
+    width: $_width;
+    height: $_width;
+    /* @include border-radius_mix($_width); */
+    border-radius: $_width;
+    bottom: $_bottom;
+    left: $_left;
+}
+
+@mixin cloud_mix($_left, $_top) {
+    position: absolute;
+    width: 200px;
+    height: 120px;
+    left: $_left;
+    top: $_top;
+
+    .cld-main {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        border-radius: 40px;
+        background: linear-gradient(to bottom, #feffff 20%, #ddf1f9 60%, #a0d8ef 100%);
+        box-shadow: 0 15px 15px -15px #333;
+    }
+
+    .cld-circle {
+        @include circle_mix(100px, 10px, 50px);
+
+        &::before {
+            @include circle_mix(75px, 0px, 55px);
+        }
+
+        &::after {
+            @include circle_mix(50px, 20px, -30px);
+        }
+    }
+}
+
+.cloud1 {
+    @include cloud_mix(-200px, 20px);
+    animation: cloud-move 21s linear infinite;
+}
+
+.cloud2 {
+    @include cloud_mix(-200px, 120px);
+    animation: cloud-move 21s linear infinite 7s;
+}
+
+.cloud3 {
+    @include cloud_mix(-200px, 220px);
+    animation: cloud-move 21s linear infinite 14s;
+}
+
+.house {
+    position: absolute;
+    width: 300px;
+    height: 365px;
+    bottom: 50px;
+    right: 250px;
+
+    .wall {
+        width: 100%;
+        height: 200px;
+        position: absolute;
+        bottom: 0;
+        background-color: #180c00;
+        background: repeating-linear-gradient(to bottom, #573808 0%, #3a1e12 15%);
+
+        .crack {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+            background: repeating-linear-gradient(3deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0) 2%, #3a1e12 2%, #3a1e12 2%, #573808 2%, #3a1e12 3%);
+        }
+
+        .crack:nth-child(2) {
+            opacity: 0.3;
+            background: repeating-linear-gradient(-4deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0) 2%, #3a1e12 2%, #3a1e12 2%, #573808 2%, #3a1e12 3%);
+        }
+    }
+
+    .window {
+        position: absolute;
+        height: 70px;
+        width: 65px;
+        background-color: #cccc00;
+        border: 5px solid #3a1e12;
+        bottom: 53px;
+        left: 110px;
+        box-shadow: 0 0 5px black;
+
+        .frame:nth-child(1) {
+            position: absolute;
+            height: 100%;
+            left: 50%;
+            margin-left: -3px;
+            width: 7px;
+            background-color: #3a1e12;
+        }
+
+        .frame:nth-child(2) {
+            position: absolute;
+            width: 100%;
+            top: 30%;
+            height: 7px;
+            background-color: #3a1e12;
+        }
+
+        .light {
+            width: 100%;
+            height: 100%;
+            background-color: #ffff00;
+            opacity: 0.5;
+            box-shadow: 0 0 100px yellow;
+        }
+    }
+
+    .roof {
+        width: 340px;
+        height: 170px;
+        right: -20px;
+        position: absolute;
+        overflow: hidden;
+
+        .roof-wall {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background-color: #573808;
+            transform: rotate(45deg);
+            left: 25px;
+            top: 60px;
+            border: 5px solid #3a1e12;
+            box-shadow: 0 0 30px black inset;
+            background: repeating-linear-gradient(45deg, #573808 0%, #573808 5%, #3a1e12 5%, #3a1e12 5%, #3a1e12 5%, #573808 5%, #3a1e12 6%)
+        }
+    }
+
+    .chimney {
+        position: absolute;
+        height: 80px;
+        width: 30px;
+        top: 58px;
+        left: 20px;
+        background: linear-gradient(to right, rgba(42, 41, 45, 1) 0%, rgba(80, 84, 91, 1) 36%, rgba(22, 27, 33, 1) 100%);
+    }
+
+    .smoke-area {
+        .smoke {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px lightgray;
+            background: radial-gradient(ellipse at center, rgba(206, 220, 231, 1) 33%, rgba(89, 106, 114, 0) 100%);
+            top: 40px;
+            left: 20px;
+
+            &:first-child {
+                animation: smoke-move 2.3s linear infinite;
+            }
+
+            &:nth-child(2) {
+                animation: smoke-move 2.5s linear infinite;
+            }
+
+            &:nth-child(3) {
+                animation: smoke-move 2.7s linear infinite;
+            }
+
+            &:nth-child(4) {
+                animation: smoke-move 2.2s linear infinite;
+            }
+
+            &:nth-child(5) {
+                animation: smoke-move 2.1s linear infinite;
+            }
+
+            &:nth-child(6) {
+                animation: smoke-move 2s linear infinite;
+            }
+
+            &:nth-child(7) {
+                animation: smoke-move 2.9s linear infinite;
+            }
+        }
+    }
+}
+
+@-webkit-keyframes cloud-move {
+    0% {
+        left: -200px;
+    }
+
+    50% {
+        left: 300px;
+    }
+
+    100% {
+        left: 1140px;
+    }
+}
+
+@-webkit-keyframes smoke-move {
+    0% {
+        top: 40px;
+        left: 20px;
+    }
+
+    20% {
+        top: 27px;
+        left: 25px;
+    }
+
+    30% {
+        top: 15px;
+        left: 35px;
+        opacity: 0.9;
+    }
+
+    40% {
+        top: 0px;
+        left: 40px;
+    }
+
+    50% {
+        top: -15px;
+        left: 50px;
+    }
+
+    60% {
+        top: -30px;
+        left: 62px;
+    }
+
+    70% {
+        top: -45px;
+        left: 75px;
+    }
+
+    80% {
+        top: -55px;
+        left: 90px;
+    }
+
+    90% {
+        top: -65px;
+        left: 117px;
+    }
+
+    100% {
+        top: -73px;
+        left: 127px;
+        opacity: 0;
+        width: 90px;
+        height: 60px
+    }
+}
