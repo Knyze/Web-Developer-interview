@@ -1,0 +1,157 @@
+<meta charset="utf-8">
+<script type="text/javascript">
+
+//1. Что выведет alert(typeof NaN); ?
+    //Число
+    console.log('1.' + typeof NaN);
+    
+//2. Что выведет alert(NaN === NaN); ?
+    //false
+    console.log('2.' + (NaN === NaN));
+    
+//3. 0.1 + 0.2 == 0.3 ?
+    //false, хотя могло и совпасть, я думаю
+    console.log('3.' + (0.1 + 0.2 == 0.3));
+    
+//4. Какой тип будет иметь переменная a, если она создается при помощи следующего кода:
+//  var a = "a,b".split(',');
+    //object
+    console.log('4.' + typeof ("a,b".split(',')));
+    
+//5. Сделать так, чтобы при нажатии на элемент <а> алертом выводилось «Hello world!».
+    document.querySelector('a').addEventListener('click', console.log('Hello world!'));
+    
+//6. Найти все элементы div с классом one, а также все элементы p с классом two. Затем добавить им всем класс three и визуально плавно спустить вниз.
+    const elems = document.querySelectorAll('div.one, p.two');
+    for (let item of elems) {
+        item.classList.add('three');
+    };
+    //что значит плавно опустить я не понял
+    
+//7. Выбрать видимый div с именем red, который содержит тег span.
+    document.querySelector('div.red > span').parentNode;
+    //Если имя это id, то странно, что есть еще другие условия выбора
+    document.querySelector('div#red.visible span').parentNode;
+
+//8. Привести пример замыкания.
+    function init() {
+        var name = "Mozilla";
+        function displayName() {
+            alert (name); 
+        }
+        displayName();    
+    }
+    init();
+    
+//9. Написать функцию, которая уменьшает или увеличивает указанное время на заданное количество минут, например:
+//changeTime('10:00', 1) //return '10:01'
+//changeTime('10:00', -1) //return '09:59'
+//changeTime('23:59', 1) //return '00:00'
+//changeTime('00:00', -1) //return '23:59'
+    
+    function changeTime(timeString, minutes) {
+        
+        function formatNumber(num) {
+            if (num < 10) {
+                return '0' + num;
+            }
+            return '' + num;
+        }
+        
+        const time = timeString.split(':');
+        
+        minutes += +time[1];
+        hours = Math.floor(minutes / 60) + +time[0];
+        
+        minutesRes = minutes % 60;
+        if (minutesRes < 0) {
+            minutesRes += 60;
+        }
+        
+        hoursRes = hours % 24;
+        if (hoursRes < 0) {
+            hoursRes += 24;
+        }
+        
+        return formatNumber(hoursRes) + ':' + formatNumber(minutesRes);
+    }
+    
+    console.log(changeTime('01:30', -155));
+    
+//10. Написать функцию, возвращающую градус, на который указывают часовая и минутная стрелки в зависимости от времени, например:
+//clock_degree("00:00") returns : "360:360"
+//clock_degree("01:01") returns : "30:6"
+//clock_degree("00:01") returns : "360:6"
+//clock_degree("01:00") returns : "30:360"
+//clock_degree("01:30") returns : "30:180"
+//clock_degree("24:00") returns : "Check your time !"
+//clock_degree("13:60") returns : "Check your time !"
+//clock_degree("20:34") returns : "240:204"
+    
+    function clock_degree(timeString, accurate = false) {
+        
+        const time = timeString.split(':');
+        
+        let hours = +time[0];
+        let minutes = +time[1];
+        
+        if (hours > 23 || hours < 0) {
+            return 'Check your time !';
+        }
+        
+        if (minutes > 59 || minutes < 0) {
+            return 'Check your time !';
+        }
+        
+        minutesDegree = minutes * 6; // *360/60
+        if (minutesDegree === 0) {
+            minutesDegree = 360;
+        }
+        
+        hoursDegree = hours * 30; // *360/12
+        if (hoursDegree > 360) {
+            hoursDegree -= 360; //pm
+        } else if (hoursDegree === 0) {
+            hoursDegree = 360;
+        }
+        
+        if (accurate) {
+            hoursDegree += Math.floor(minutes/2); // 1 час 30 градусов 60 минут
+        }
+        
+        return `${hoursDegree}:${minutesDegree}`;
+        
+    }
+    
+    console.log(clock_degree('01:30'));
+    
+//11. Написать простую игру «Угадай число». Программа загадывает случайное число от 0 до 100. Игрок должен вводить предположения и получать ответы «Больше», «Меньше» или «Число угадано».
+    
+    const answer = parseInt(Math.random() * 100);
+    let userAnswer = +prompt("Угадайте число от 0 до 100");
+    const maxTryCount = 15;
+    
+    let tryCount = 1;
+
+    for (; tryCount <= maxTryCount; tryCount++) {
+        if (userAnswer == answer) {
+            alert("Число угадано");
+            break;
+        } else if (userAnswer > answer) {
+            alert("Меньше");
+        } else if (userAnswer < answer) {
+            alert("Больше");
+        }
+
+        userAnswer = +prompt("Попробуйте еще раз. Введите число от 1 до 100\n У вас осталось " + (maxTryCount - tryCount) + " попыток");
+    }
+
+    if (tryCount == maxTryCount)
+        alert("Вы проиграли!");
+
+    alert("Правильный ответ: " + answer);
+    
+</script>
+
+<!--5. Сделать так, чтобы при нажатии на элемент <а> алертом выводилось «Hello world!».-->
+<a href="#" onclick="alert('Hello world!')">Объект a></a>
